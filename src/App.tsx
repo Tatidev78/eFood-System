@@ -1,8 +1,14 @@
+import { useState } from 'react'
+import { Provider } from 'react-redux'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
+import { store } from './store'
+
 import GlobalCss from './styles'
 import Home from './components/Home'
 import Pizza from './components/Pizza'
-import {Footer} from './components/Footer'
+import { Footer } from './components/Footer'
+import Cart from './components/Cart'
 
 const Rotas = () => (
   <Routes>
@@ -12,14 +18,21 @@ const Rotas = () => (
 )
 
 function App() {
+  const [isOpen, setIsOpen] = useState(false)
+
   return (
-    <BrowserRouter>
-      <GlobalCss />
-      <div className="App">
-        <Rotas />
-        <Footer/>
-      </div>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <GlobalCss />
+
+        <div className="App">
+          <Rotas />
+          <Footer />
+        </div>
+
+        {isOpen && <Cart />}
+      </BrowserRouter>
+    </Provider>
   )
 }
 

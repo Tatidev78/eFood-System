@@ -5,5 +5,6 @@ export type Prato = {
   description: string
   image: string
   nota: number
-  infos?: string[]   
+  infos?: string[]  
+  price?: number 
 }
