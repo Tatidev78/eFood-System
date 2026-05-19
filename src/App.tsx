@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
@@ -18,8 +17,6 @@ const Rotas = () => (
 )
 
 function App() {
-  const [isOpen, setIsOpen] = useState(false)
-
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -30,7 +27,7 @@ function App() {
           <Footer />
         </div>
 
-        {isOpen && <Cart />}
+        <Cart />  {/* ← Atenção: Cart decide se aparece ou não */}
       </BrowserRouter>
     </Provider>
   )

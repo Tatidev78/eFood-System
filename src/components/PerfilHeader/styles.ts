@@ -66,3 +66,12 @@ export const Banner = styled.div`
   }
 `
 
+export const CartButton = styled.button`
+  background: none;
+  border: none;
+  font-size: 18px;
+  font-weight: 900;
+  color: inherit;
+  cursor: pointer;
+  font-family: inherit; // mantém a mesma fonte
+`

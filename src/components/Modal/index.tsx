@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { add } from '../../store/reducers/cart'
+import { add, open } from '../../store/reducers/cart'
 
 import { Prato } from '../../types'
 import * as S from './style'
@@ -9,8 +9,25 @@ type Props = {
   fecharModal: () => void
 }
 
+const PRECO_FIXO = 60.90  // ← preço definido aqui
+
 const Modal = ({ prato, fecharModal }: Props) => {
   const dispatch = useDispatch()
+
+  // Formata para exibição: 60.90 → "60,90"
+  const precoFormatado = PRECO_FIXO.toFixed(2).replace('.', ',')
+
+  const adicionarEAbrirCarrinho = () => {
+    // Cria objeto com preço para o carrinho
+    const pratoComPreco = {
+      ...prato,
+      price: PRECO_FIXO
+    }
+    
+    dispatch(add(pratoComPreco))
+    dispatch(open())
+    fecharModal()
+  }
 
   return (
     <S.Overlay>
@@ -39,8 +56,8 @@ const Modal = ({ prato, fecharModal }: Props) => {
 
           <span>Serve de 2 a 3 pessoas</span>
 
-          <button onClick={() => dispatch(add(prato))}>
-            Adicionar ao carrinho - R$ 60,90
+          <button onClick={adicionarEAbrirCarrinho}>
+            Adicionar ao carrinho - R$ {precoFormatado}
           </button>
         </S.Content>
       </S.Container>

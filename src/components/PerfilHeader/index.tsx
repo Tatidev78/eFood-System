@@ -1,28 +1,39 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
-import {HeaderBar, Banner} from './styles'
+import { useDispatch, useSelector } from 'react-redux'
+import { HeaderBar, Banner, CartButton } from './styles'
 import logo from '../../assets/images/logo.png'
+import { RootState } from '../../store'
+import { open } from '../../store/reducers/cart'
 
+const PerfilHeader = () => {
+  const dispatch = useDispatch()
+  const items = useSelector((state: RootState) => state.cart.items)
 
-const PerfilHeader = () => (
-  <>
-  <HeaderBar>
-    <div className='container'>
-      <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <h2>Restaurantes</h2>
-        </Link>
+  return (
+    <>
+      <HeaderBar>
+        <div className='container'>
+          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <h2>Restaurantes</h2>
+          </Link>
 
-     <img src={logo} alt="logo efood" />
-     <h2> 0 produto(s) no carrinho</h2>
-     </div>
-  </HeaderBar>
-  <Banner>
-      <div className="container">
-        <h3>Italiana</h3>
-        <h2>La Dolce Vita Trattoria</h2>
-      </div>
-    </Banner>
-  </>
-)
+          <img src={logo} alt="logo efood" />
+
+          {/* ← AQUI: botão que abre o carrinho e mostra quantidade real */}
+          <CartButton onClick={() => dispatch(open())}>
+            {items.length} produto(s) no carrinho
+          </CartButton>
+        </div>
+      </HeaderBar>
+
+      <Banner>
+        <div className="container">
+          <h3>Italiana</h3>
+          <h2>La Dolce Vita Trattoria</h2>
+        </div>
+      </Banner>
+    </>
+  )
+}
 
 export default PerfilHeader

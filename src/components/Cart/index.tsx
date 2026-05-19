@@ -1,20 +1,26 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../store'
-import Button from '../Button'
-import {Overlay, CartContainer, Sidebar, Price, CartItem} from './styles'
+import { Overlay, CartContainer, Sidebar, Price, CartItem, CheckoutButton } from './styles'
+import { close, remove } from '../../store/reducers/cart'
 
-const Cart = () => {
-  const items = useSelector(
-    (state: RootState) => state.cart.items
-  )
-
-  const getTotalPrice = () => {
-  return items.reduce((acc, item) => acc + (item.price || 0), 0)
+// Função para formatar preço no padrão brasileiro
+const formatarPreco = (preco: number): string => {
+  return preco.toFixed(2).replace('.', ',')
 }
 
-  const closeCart = () => {
-    console.log('fechar carrinho')
+const Cart = () => {
+  const dispatch = useDispatch()
+  const { items, isOpen } = useSelector((state: RootState) => state.cart)
+
+  const getTotalPrice = (): number => {
+    return items.reduce((acc, item) => acc + (item.price || 0), 0)
   }
+
+  const closeCart = () => {
+    dispatch(close())
+  }
+
+  if (!isOpen) return null
 
   return (
     <CartContainer>
@@ -22,30 +28,31 @@ const Cart = () => {
       <Sidebar>
         <ul>
           {items.map((item) => (
-            <CartItem key={item.id}>
+            <CartItem key={item.uniqueId}>
               <img src={item.image} alt={item.title} />
-
               <div>
                 <h3>{item.title}</h3>
-                <span>R$ {(item.price || 0).toFixed(2)}</span>
+                <span>R$ {formatarPreco(item.price || 0)}</span>
               </div>
+              <button
+                onClick={() => dispatch(remove(item.uniqueId))}
+                type="button"
+                title="Remover item"
+              >
+                🗑️
+              </button>
             </CartItem>
           ))}
         </ul>
 
-        {/* <p>{items.length} pratos no carrinho</p> */}
-
         <Price>
-          Valor total 
-          <span> R$ {getTotalPrice().toFixed(2)} </span>
+          Valor total
+          <span>R$ {formatarPreco(getTotalPrice())}</span>
         </Price>
 
-        <Button
-          title="Clique aqui para continuar com a compra"
-          type="button"
-        >
+        <CheckoutButton type="button">
           Continuar com a entrega
-        </Button>
+        </CheckoutButton>
       </Sidebar>
     </CartContainer>
   )
