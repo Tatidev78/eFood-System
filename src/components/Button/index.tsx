@@ -1,37 +1,44 @@
-import { ButtonContainer, ButtonLink } from "./styles";
+import { ButtonContainer, ButtonLink } from './styles'
 
 type Props = {
-  type: 'button' | 'link';
-  title: string;
-  to?: string;
-  onClick?: () => void;
-  children: React.ReactNode;
-  $cardapio?: 'home' | 'pizza'; // ← adiciona o cardapio aqui
-};
+  type: 'button' | 'link'
+  title: string
+  to?: string
+  onClick?: () => void
+  children: React.ReactNode
+  $cardapio?: 'home' | 'restaurante'
+}
 
-const Button = ({ type, title, to, onClick, children, $cardapio }: Props) => {
+const Button = ({
+  type,
+  title,
+  to,
+  onClick,
+  children,
+  $cardapio
+}: Props) => {
   if (type === 'button') {
     return (
       <ButtonContainer
         type="button"
         title={title}
         onClick={onClick}
-        $cardapio={$cardapio} // ← passa para o styled-component
+        $cardapio={$cardapio}
       >
         {children}
       </ButtonContainer>
-    );
+    )
   }
 
   return (
     <ButtonLink
-      to="/pizza"
+      to={to || '/'}
       title={title}
-      $cardapio={$cardapio} // ← passa para o styled-component
+      $cardapio={$cardapio}
     >
       {children}
     </ButtonLink>
-  );
-};
+  )
+}
 
-export default Button;
+export default Button

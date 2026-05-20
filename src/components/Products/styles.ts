@@ -1,68 +1,45 @@
-import styled from 'styled-components';
-import { cores } from '../../styles';
+import styled from 'styled-components'
+import { cores } from '../../styles'
 
 export type CardProps = {
-  cardapio?: 'home' | 'pizza'
+  cardapio?: 'home' | 'restaurante'
 }
 
-export const Card = styled.div<{ $cardapio?: "home" | "pizza" }>`
-  box-sizing: border-box;
+export const Card = styled.div<{ $cardapio?: 'home' | 'restaurante' }>`
   width: 100%;
-  min-height: 360px;
+  min-height: 420px;
+  max-height: 420px;
   position: relative;
-
   display: flex;
   flex-direction: column;
   gap: 8px;
 
-  padding: ${({ $cardapio }) => ($cardapio === "pizza" ? "8px" : "0")};
+  padding: ${({ $cardapio }) => ($cardapio === "restaurante" ? "8px" : "0")};
 
   background-color: ${({ $cardapio }) =>
-    $cardapio === "pizza" ? cores.vermelhoSuave : "#FFFFFF"};
+    $cardapio === 'restaurante'
+      ? cores.vermelhoSuave
+      : '#FFFFFF'};
 
-  border: 1px solid ${cores.vermelhoSuave};
+  //border-radius: 16px;
+
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+
+    box-shadow: 0 8px 24px
+      rgba(0, 0, 0, 0.12);
+  }
 
   img {
     width: 100%;
-    height: 167px;
+    height: 220px;
     object-fit: cover;
+
     display: block;
-    margin-bottom: 8px;
-  }
-
-  .content {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 0 8px;
-    flex: 1;
-  }
-
-  .infos-tags {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    display: flex;
-    gap: 8px;
-  }
-
-  .title-rating {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .rating {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 14px;
-    font-weight: bold;
-    color: ${cores.vermelhoSuave};
-  }
-
-  .star {
-    color: ${cores.vermelhoSuave};
   }
 
   button {
@@ -76,36 +53,134 @@ export const Card = styled.div<{ $cardapio?: "home" | "pizza" }>`
 
     margin-top: auto;
 
+    transition: 0.3s ease;
+
     background-color: ${({ $cardapio }) =>
-      $cardapio === "pizza" ? "#FFEBD9" : cores.vermelhoSuave};
+      $cardapio === 'restaurante'
+        ? '#FFEBD9'
+        : cores.vermelhoSuave};
 
     color: ${({ $cardapio }) =>
-      $cardapio === "pizza" ? cores.vermelhoSuave : "#FFEBD9"};
+      $cardapio === 'restaurante'
+        ? cores.vermelhoSuave
+        : '#FFEBD9'};
+
+    &:hover {
+      opacity: 0.9;
+    }
   }
-`;
 
-export const Titulo = styled.h3<{ $cardapio?: "home" | "pizza" }>`
+  @media (max-width: 768px) {
+    min-height: auto;
+
+    img {
+      height: 200px;
+    }
+  }
+`
+
+export const InfosTags = styled.div`
+  position: absolute;
+
+  top: 16px;
+  right: 16px;
+
+  display: flex;
+  gap: 8px;
+
+  flex-wrap: wrap;
+
+  max-width: 80%;
+`
+
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+
+  padding: 16px;
+
+  flex: 1;
+`
+
+export const TitleRating = styled.div`
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 12px;
+
+  .rating {
+    display: flex;
+
+    align-items: center;
+
+    gap: 4px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    color: ${cores.vermelhoSuave};
+
+    white-space: nowrap;
+  }
+
+  .star {
+    color: ${cores.vermelhoSuave};
+
+    font-size: 18px;
+  }
+`
+
+export const Titulo = styled.h3<{
+  $cardapio?: 'home' | 'restaurante'
+}>`
   color: ${({ $cardapio }) =>
-    $cardapio === "pizza" ? "#FFEBD9" : cores.vermelhoSuave};
+    $cardapio === 'restaurante'
+      ? '#FFEBD9'
+      : cores.vermelhoSuave};
 
-  font-size: 18px;
-  line-height: 100%;
+  font-size: 20px;
+
+  line-height: 26px;
+
   font-weight: bold;
-  margin: 0;
-`;
 
-export const Descricao = styled.p<{ $cardapio?: "home" | "pizza" }>`
+  margin: 0;
+`
+
+export const Descricao = styled.p<{
+  $cardapio?: 'home' | 'restaurante'
+}>`
   color: ${({ $cardapio }) =>
-    $cardapio === "pizza" ? "#FFEBD9" : cores.vermelhoSuave};
+    $cardapio === 'restaurante'
+      ? '#FFEBD9'
+      : cores.vermelhoSuave};
 
-  font-size: 14px;
-  line-height: 22px;
+  font-size: 15px;
+
+  line-height: 24px;
+
   font-weight: 400;
+
   margin: 0;
-`;
+
+  display: -webkit-box;
+
+  -webkit-line-clamp: 3;
+
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+`
 
 export const ModalOverlay = styled.div`
   position: fixed;
+
   top: 0;
   left: 0;
 
@@ -115,67 +190,99 @@ export const ModalOverlay = styled.div`
   background: rgba(0, 0, 0, 0.73);
 
   display: flex;
+
   justify-content: center;
+
   align-items: center;
 
   z-index: 999;
+
+  padding: 16px;
 `
 
-export const Modal = styled.div`
-  width: 1024px;
+// export const Modal = styled.div`
+//   width: 95%;
 
-  background: #E66767;
+//   max-width: 1024px;
 
-  padding: 32px;
+//   background: #e66767;
 
-  position: relative;
+//   padding: 32px;
 
-  display: flex;
-  gap: 24px;
+//   position: relative;
 
-  img {
-    width: 280px;
-    height: 280px;
+//   display: flex;
 
-    object-fit: cover;
-  }
+//   gap: 24px;
 
-  .modal-content {
-    color: white;
+//   border-radius: 16px;
 
-    display: flex;
-    flex-direction: column;
-  }
+//   img {
+//     width: 280px;
 
-  .close {
-    position: absolute;
+//     height: 280px;
 
-    top: 8px;
-    right: 8px;
+//     object-fit: cover;
 
-    background: transparent;
+//     border-radius: 12px;
+//   }
 
-    border: none;
+//   .modal-content {
+//     color: white;
 
-    color: white;
+//     display: flex;
 
-    cursor: pointer;
+//     flex-direction: column;
 
-    font-size: 18px;
-  }
+//     justify-content: center;
+//   }
 
-  .modal-content button {
-    margin-top: 16px;
+//   .close {
+//     position: absolute;
 
-    background: #FFEBD9;
+//     top: 16px;
+//     right: 16px;
 
-    border: none;
+//     background: transparent;
 
-    padding: 8px;
+//     border: none;
 
-    font-weight: bold;
+//     color: white;
 
-    cursor: pointer;
-  }
-`
+//     cursor: pointer;
 
+//     font-size: 20px;
+//   }
+
+//   .modal-content button {
+//     margin-top: 24px;
+
+//     background: #FFEBD9;
+
+//     border: none;
+
+//     padding: 8px;
+
+//     font-weight: bold;
+
+//     cursor: pointer;
+
+//     transition: 0.3s ease;
+
+//     &:hover {
+//       opacity: 0.9;
+//     }
+//   }
+
+//   @media (max-width: 768px) {
+//     flex-direction: column;
+
+//     padding: 24px;
+
+//     img {
+//       width: 100%;
+
+//       height: 220px;
+//     }
+//   }
+// `

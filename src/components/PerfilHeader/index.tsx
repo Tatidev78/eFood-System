@@ -5,7 +5,13 @@ import logo from '../../assets/images/logo.png'
 import { RootState } from '../../store'
 import { open } from '../../store/reducers/cart'
 
-const PerfilHeader = () => {
+type Props = {
+  titulo?: string
+  tipo?: string
+  capa?: string
+}
+
+const PerfilHeader = ({ titulo, tipo, capa }: Props) => {
   const dispatch = useDispatch()
   const items = useSelector((state: RootState) => state.cart.items)
 
@@ -19,17 +25,16 @@ const PerfilHeader = () => {
 
           <img src={logo} alt="logo efood" />
 
-          {/* ← AQUI: botão que abre o carrinho e mostra quantidade real */}
           <CartButton onClick={() => dispatch(open())}>
             {items.length} produto(s) no carrinho
           </CartButton>
         </div>
       </HeaderBar>
 
-      <Banner>
+      <Banner $capa={capa}>
         <div className="container">
-          <h3>Italiana</h3>
-          <h2>La Dolce Vita Trattoria</h2>
+          <h3>{tipo}</h3>
+          <h2>{titulo}</h2>
         </div>
       </Banner>
     </>

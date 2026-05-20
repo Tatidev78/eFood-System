@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.section`
   padding: 32px 0;
@@ -7,15 +7,17 @@ export const Container = styled.section`
   margin: 0 auto;
 `
 
-export const List = styled.ul<{ $cardapio?: "home" | "pizza" }>`
+export const List = styled.ul<{
+  $cardapio?: 'home' | 'restaurante'
+}>`
   display: grid;
-  grid-template-columns: ${({ $cardapio }) =>
-    $cardapio === "pizza"
-      ? "repeat(3, 1fr)"
-      : "repeat(2, 1fr)"};
 
-  
-  column-gap: ${({ $cardapio }) => ($cardapio === "pizza" ? "32px" : "80px")};
+  grid-template-columns: ${({ $cardapio }) =>
+    $cardapio === 'restaurante'
+      ? 'repeat(3, 1fr)'
+      : 'repeat(2, 1fr)'};
+
+  column-gap: ${({ $cardapio }) => ($cardapio === "restaurante" ? "32px" : "80px")};
   row-gap:48px;
   margin:80px 0;
   list-style: none;
@@ -25,10 +27,17 @@ export const List = styled.ul<{ $cardapio?: "home" | "pizza" }>`
     width: 100%;
   }
 
-  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+
+    row-gap: 24px;
+  }
 `
 
 export const Title = styled.h2`
-font-size: 18px;
-font-weight:bold;
+  font-size: 18px;
+
+  font-weight: bold;
+
+  margin-bottom: 16px;
 `

@@ -1,15 +1,23 @@
-import Tag from "../Tag"
-import { Card, Titulo, Descricao } from './styles'
-import Button from "../Button"
-import { FaStar } from 'react-icons/fa'
+import Tag from '../Tag'
+import Button from '../Button'
+
+import {
+  Card,
+  Titulo,
+  Descricao,
+  Content,
+  InfosTags,
+  TitleRating
+} from './styles'
 
 type Props = {
   title: string
   description: string
   image: string
-  nota: number
+  nota?: number
   infos?: string[]
-  cardapio?: 'home' | 'pizza'
+  link?: string
+  cardapio?: 'home' | 'restaurante'
   onClick?: () => void
 }
 
@@ -19,50 +27,58 @@ const Products = ({
   image,
   nota,
   infos,
+  link,
   cardapio = 'home',
   onClick
 }: Props) => {
+  const isRestaurante = cardapio === 'restaurante'
 
-  const buttonText =
-    cardapio === 'pizza'
-      ? 'Adicionar ao carrinho'
-      : 'Saiba mais'
+  const buttonText = isRestaurante
+    ? 'Adicionar ao carrinho'
+    : 'Saiba mais'
 
   return (
     <Card $cardapio={cardapio}>
       <img src={image} alt={title} />
 
-      <div className="infos-tags">
+      <InfosTags>
         {infos?.map((info, index) => (
-          <Tag key={`${info}-${index}`}>{info}</Tag>
+          <Tag key={`${info}-${index}`}>
+            {info}
+          </Tag>
         ))}
-      </div>
+      </InfosTags>
 
-      <div className="content">
-        <div className="title-rating">
-          <Titulo $cardapio={cardapio}>{title}</Titulo>
+      <Content>
+        <TitleRating>
+          <Titulo $cardapio={cardapio}>
+            {title}
+          </Titulo>
 
-          {cardapio !== 'pizza' && (
+          {!isRestaurante && nota && (
             <span className="rating">
               {nota}
-              <span className="star">★</span>
+
+              <span className="star">
+                ★
+              </span>
             </span>
           )}
-        </div>
+        </TitleRating>
 
         <Descricao $cardapio={cardapio}>
           {description}
         </Descricao>
-      </div>
+      </Content>
 
       <Button
-          type={cardapio === 'pizza' ? 'button' : 'link'}
-          to="/"
-          onClick={onClick}
-          title={buttonText}
-          $cardapio={cardapio}
-        >
-          {buttonText}
+        type={isRestaurante ? 'button' : 'link'}
+        to={link}
+        onClick={onClick}
+        title={buttonText}
+        $cardapio={cardapio}
+      >
+        {buttonText}
       </Button>
     </Card>
   )

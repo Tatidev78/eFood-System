@@ -3,7 +3,6 @@ import { RootState } from '../../store'
 import { Overlay, CartContainer, Sidebar, Price, CartItem, CheckoutButton } from './styles'
 import { close, remove } from '../../store/reducers/cart'
 
-// Função para formatar preço no padrão brasileiro
 const formatarPreco = (preco: number): string => {
   return preco.toFixed(2).replace('.', ',')
 }
@@ -13,7 +12,7 @@ const Cart = () => {
   const { items, isOpen } = useSelector((state: RootState) => state.cart)
 
   const getTotalPrice = (): number => {
-    return items.reduce((acc, item) => acc + (item.price || 0), 0)
+    return items.reduce((acc, item) => acc + (item.preco || 0), 0)
   }
 
   const closeCart = () => {
@@ -29,10 +28,10 @@ const Cart = () => {
         <ul>
           {items.map((item) => (
             <CartItem key={item.uniqueId}>
-              <img src={item.image} alt={item.title} />
+              <img src={item.foto} alt={item.nome} />
               <div>
-                <h3>{item.title}</h3>
-                <span>R$ {formatarPreco(item.price || 0)}</span>
+                <h3>{item.nome}</h3>
+                <span>R$ {formatarPreco(item.preco || 0)}</span>
               </div>
               <button
                 onClick={() => dispatch(remove(item.uniqueId))}

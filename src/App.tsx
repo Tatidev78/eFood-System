@@ -5,14 +5,14 @@ import { store } from './store'
 
 import GlobalCss from './styles'
 import Home from './components/Home'
-import Pizza from './components/Pizza'
+import Restaurante from './components/Restaurante'
 import { Footer } from './components/Footer'
 import Cart from './components/Cart'
 
 const Rotas = () => (
   <Routes>
     <Route path="/" element={<Home />} />
-    <Route path="/pizza" element={<Pizza />} />
+    <Route path="/restaurante/:id" element={<Restaurante />} />
   </Routes>
 )
 
@@ -27,7 +27,7 @@ function App() {
           <Footer />
         </div>
 
-        <Cart />  {/* ← Atenção: Cart decide se aparece ou não */}
+        <Cart />
       </BrowserRouter>
     </Provider>
   )

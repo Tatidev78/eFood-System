@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import fundo from "../../assets/images/fundo.png"
-import apresentacao from "../../assets/images/apresentacao.png"
 
 export const HeaderBar = styled.div`
   width: 100%;
@@ -21,11 +20,12 @@ export const HeaderBar = styled.div`
     margin: 0 auto;
   }
 `
-export const Banner = styled.div`
+
+export const Banner = styled.div<{ $capa?: string }>`
   width: 100%;
   height: 280px;
   display:block;
-  background-image: url(${apresentacao});
+  background-image: url(${props => props.$capa || ''});
   background-size: cover; 
   background-position: center;
   background-repeat: no-repeat;
@@ -73,5 +73,5 @@ export const CartButton = styled.button`
   font-weight: 900;
   color: inherit;
   cursor: pointer;
-  font-family: inherit; // mantém a mesma fonte
+  font-family: inherit;
 `
