@@ -25,6 +25,10 @@ export const HeaderBar = styled.div`
     padding: 0 16px;
     box-sizing: border-box;
 
+    img{
+    wigth: 100px;
+    }
+
     @media (max-width: 768px) {
       padding: 0 12px;
       
