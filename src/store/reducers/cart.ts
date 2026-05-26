@@ -1,4 +1,9 @@
-import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit'
+import {
+  createSlice,
+  PayloadAction,
+  nanoid
+} from '@reduxjs/toolkit'
+
 import { Prato } from '../../types'
 
 export type CartItem = Prato & {
@@ -17,19 +22,27 @@ const initialState: CartState = {
 
 const cartSlice = createSlice({
   name: 'cart',
+
   initialState,
 
   reducers: {
-    add: (state, action: PayloadAction<Prato>) => {
+    add: (
+      state,
+      action: PayloadAction<Prato>
+    ) => {
       state.items.push({
         ...action.payload,
         uniqueId: nanoid()
       })
     },
 
-    remove: (state, action: PayloadAction<string>) => {
+    remove: (
+      state,
+      action: PayloadAction<string>
+    ) => {
       state.items = state.items.filter(
-        (item) => item.uniqueId !== action.payload
+        (item) =>
+          item.uniqueId !== action.payload
       )
     },
 
@@ -39,10 +52,20 @@ const cartSlice = createSlice({
 
     close: (state) => {
       state.isOpen = false
+    },
+
+    clear: (state) => {
+      state.items = []
     }
   }
 })
 
-export const { add, remove, open, close } = cartSlice.actions
+export const {
+  add,
+  remove,
+  open,
+  close,
+  clear
+} = cartSlice.actions
 
 export default cartSlice.reducer

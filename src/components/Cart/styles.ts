@@ -4,26 +4,43 @@ import { cores } from '../../styles'
 export const CartContainer = styled.div`
   position: fixed;
   inset: 0;
+
   display: flex;
   justify-content: flex-end;
-  z-index: 999;
+
+  z-index: 998;
 `
 
 export const Overlay = styled.div`
   position: absolute;
   inset: 0;
+
   background-color: rgba(0, 0, 0, 0.7);
+
+  @media (max-width: 768px) {
+    width: calc(100% - 320px);
+  }
 `
 
 export const Sidebar = styled.aside`
   position: relative;
+
   width: 100%;
   max-width: 360px;
+
   height: 100vh;
+
   background-color: ${cores.vermelhoSuave};
+
   padding: 32px 16px 16px;
+
   overflow-y: auto;
+
   z-index: 1;
+
+  @media (max-width: 768px) {
+    max-width: 320px;
+  }
 `
 
 export const Price = styled.p`
@@ -74,16 +91,21 @@ export const CartItem = styled.li`
     color: ${cores.vermelhoSuave};
   }
 
-  button {
+    button {
     position: absolute;
-    bottom: 8px;
     right: 8px;
-    background: none;
+    bottom: 8px;
+
+    background: transparent;
     border: none;
     cursor: pointer;
-    font-size: 16px;
-    padding: 4px;
-  }
+    }
+
+  button img {
+    width: 16px;
+    height: 16px;
+    }
+    
 `
 
 export const CheckoutButton = styled.button`

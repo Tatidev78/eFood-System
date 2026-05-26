@@ -1,20 +1,15 @@
 import { Provider } from 'react-redux'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 
 import { store } from './store'
 
-import GlobalCss from './styles'
-import Home from './components/Home'
-import Restaurante from './components/Restaurante'
-import { Footer } from './components/Footer'
-import Cart from './components/Cart'
+import Rotas from './components/routes'
 
-const Rotas = () => (
-  <Routes>
-    <Route path="/" element={<Home />} />
-    <Route path="/restaurante/:id" element={<Restaurante />} />
-  </Routes>
-)
+import GlobalCss from './styles'
+
+import { Footer } from './components/Footer'
+
+import Cart from './components/Cart'
 
 function App() {
   return (

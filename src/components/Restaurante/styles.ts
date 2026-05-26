@@ -7,4 +7,10 @@ export const Container = styled.div`
   margin: 0 auto;
 
   padding: 32px 16px;
+
+  @media (max-width: 768px) {
+    padding: 8px 8px 16px;
+  }
+
 `
+

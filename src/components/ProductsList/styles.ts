@@ -19,7 +19,7 @@ export const List = styled.ul<{
 
   column-gap: ${({ $cardapio }) => ($cardapio === "restaurante" ? "32px" : "80px")};
   row-gap:48px;
-  margin:80px 0;
+  margin:40px 0;
   list-style: none;
   padding: 0;
 
@@ -29,7 +29,7 @@ export const List = styled.ul<{
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-
+     margin-top: 0;
     row-gap: 24px;
   }
 `
